@@ -46,39 +46,7 @@ wrangler d1 create url-shortener-db
 ```bash
 vim wrangler.toml
 ```
-```bash
-name = "url-shortener"
-main = "src/index.js"
-compatibility_date = "2025-03-20"
-
-[[d1_databases]]
-binding = "DB"
-database_name = "url-shortener-db"
-database_id = "your-database-id"
-
-```
 4. **创建数据库表**
-```bash
-vim schema.sql
-```
-```bash
-DROP TABLE IF EXISTS url_mappings;
-
--- 创建URL映射表
-CREATE TABLE IF NOT EXISTS url_mappings (
-  id INTEGER PRIMARY KEY AUTOINCREMENT,
-  short_url TEXT NOT NULL UNIQUE,
-  long_url TEXT NOT NULL,
-  created_at TEXT NOT NULL
-);
-
--- 创建索引以加快查询速度
-CREATE INDEX IF NOT EXISTS idx_short_url ON url_mappings (short_url);
-CREATE INDEX IF NOT EXISTS idx_long_url ON url_mappings (long_url);
-CREATE INDEX IF NOT EXISTS idx_created_at ON url_mappings (created_at);
-
-```
-
 ```bash
 wrangler d1 execute url-shortener-db --file=./schema.sql
 
