@@ -1,6 +1,6 @@
 // 配置管理员账号
 const ADMIN_USERNAME = 'admin';
-const ADMIN_PASSWORD = 'xxxxxxxxxx';
+const ADMIN_PASSWORD = 'passwd123';
 
 // 速率限制配置和存储
 const RATE_LIMIT = {
