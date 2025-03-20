@@ -722,7 +722,7 @@ function getTranslateHtml() {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json',
-                            'Authorization': 'Basic ' + btoa(`\${ADMIN_USERNAME}:\${ADMIN_PASSWORD}`)
+                            'Authorization': 'Basic ' + btoa('${ADMIN_USERNAME}:${ADMIN_PASSWORD}')
                         },
                         body: JSON.stringify({ longUrl, customPath })
                     });
@@ -790,7 +790,7 @@ function getTranslateHtml() {
 
                     const response = await fetch(url, {
                         headers: {
-                            'Authorization': 'Basic ' + btoa(`\${ADMIN_USERNAME}:\${ADMIN_PASSWORD}`)
+                            'Authorization': 'Basic ' + btoa('${ADMIN_USERNAME}:${ADMIN_PASSWORD}')
                         }
                     });
 
@@ -942,7 +942,7 @@ function getTranslateHtml() {
                         method: 'DELETE',
                         headers: {
                             'Content-Type': 'application/json',
-                            'Authorization': 'Basic ' + btoa(`\${ADMIN_USERNAME}:\${ADMIN_PASSWORD}`)
+                            'Authorization': 'Basic ' + btoa('${ADMIN_USERNAME}:${ADMIN_PASSWORD}')
                         },
                         body: JSON.stringify({ id: deleteId })
                     });
