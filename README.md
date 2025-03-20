@@ -41,7 +41,11 @@ wrangler d1 create url-shortener-db
 ```
 
 3. **更新 wrangler.toml 文件**
+   
 将创建的数据库信息database_id 添加到 wrangler.toml 文件中：
+```bash
+vim wrangler.toml
+```
 ```bash
 name = "url-shortener"
 main = "src/index.js"
@@ -54,6 +58,9 @@ database_id = "your-database-id"
 
 ```
 4. **创建数据库表**
+```bash
+vim schema.sql
+```
 ```bash
 DROP TABLE IF EXISTS url_mappings;
 
