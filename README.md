@@ -32,8 +32,9 @@
 
 ```bash
 git clone https://github.com/yourusername/url-shortener.git
+
 cd url-shortener
-wrangler login
+
 ```
 ```bash
 wrangler login
