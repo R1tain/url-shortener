@@ -1,0 +1,8 @@
+name = "url-shortener"
+main = "src/index.js"
+compatibility_date = "2025-03-20"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "url-shortener-db"
+database_id = "your-database-id"
