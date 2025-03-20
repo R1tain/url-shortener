@@ -64,15 +64,14 @@ wrangler d1 execute url-shortener-db --file=./schema.sql
 - 访问 [https://dash.cloudflare.com/](https://dash.cloudflare.com/)
 - 使用您的 Cloudflare 账号登录
 
-##### 2. 导航到 Workers & Pages
-- 在左侧菜单中点击 **"Workers & Pages"**
+##### 2. 导航到 Storage & Databases
+- 在左侧菜单中点击 **"D1 SQL Database"**
 
 ##### 3. 访问 D1 数据库
-- 在顶部导航栏中点击 **"D1"**
-- 找到并选择您的 `url_shortener_db` 数据库
+- 点击创建的数据库 **"url_shortener_db"**
 
 ##### 4. 打开查询界面
-- 点击 **"Query"** 选项卡，打开 SQL 查询界面
+- 在顶部导航栏中点击 **"Console"**
 
 ##### 5. 执行 SQL 命令
 复制以下 SQL 命令到查询框中并依次执行：
@@ -84,7 +83,7 @@ DROP TABLE IF EXISTS url_mappings;
 
 ###### 创建新表
 ```bash
-CREATE TABLE url_mappings (
+CREATE TABLE IF NOT EXISTS url_mappings (
   id INTEGER PRIMARY KEY AUTOINCREMENT,
   short_url TEXT NOT NULL UNIQUE,
   long_url TEXT NOT NULL,
@@ -99,6 +98,11 @@ CREATE INDEX idx_short_url ON url_mappings(short_url);
 ```bash
 CREATE INDEX idx_long_url ON url_mappings(long_url);
 ```
+###### 创建新建索引
+```bash
+CREATE INDEX idx_created_at ON url_mappings (created_at);
+```
+
 ###### 检查数据库是否正确配置
 
 完成架构更新后，您可以执行以下查询来验证数据库是否正确配置：
@@ -116,7 +120,7 @@ SELECT * FROM url_mappings WHERE short_url = 'test';
 ```bash
 DELETE FROM url_mappings WHERE short_url = 'test';
 ```
-以上步骤完成后，您的数据库架构应已成功更新并通过测试验证。
+以上步骤完成后，数据库架构应已成功更新并通过测试验证。
 
 
 
