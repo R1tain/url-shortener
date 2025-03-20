@@ -33,6 +33,10 @@
 ```bash
 git clone https://github.com/yourusername/url-shortener.git
 cd url-shortener
+wrangler login
+```
+```bash
+wrangler login
 ```
 
 2. **创建 D1 数据库**
@@ -52,6 +56,69 @@ wrangler d1 execute url-shortener-db --file=./schema.sql
 
 ```
 如果执行失败手动去Cloudfalre修改.
+如果您需要手动更新数据库架构而不使用 `wrangler d1 execute` 命令，可以通过 Cloudflare Dashboard 直接操作。以下是详细步骤：
+
+## 通过 Cloudflare Dashboard 更新数据库架构
+
+### 1. 登录 Cloudflare Dashboard
+- 访问 [https://dash.cloudflare.com/](https://dash.cloudflare.com/)
+- 使用您的 Cloudflare 账号登录
+
+### 2. 导航到 Workers & Pages
+- 在左侧菜单中点击 **"Workers & Pages"**
+
+### 3. 访问 D1 数据库
+- 在顶部导航栏中点击 **"D1"**
+- 找到并选择您的 `url_shortener_db` 数据库
+
+### 4. 打开查询界面
+- 点击 **"Query"** 选项卡，打开 SQL 查询界面
+
+### 5. 执行 SQL 命令
+复制以下 SQL 命令到查询框中并依次执行：
+
+#### 删除现有表（如果存在）
+```sql
+DROP TABLE IF EXISTS url_mappings;
+```
+
+#### 创建新表
+```bash
+CREATE TABLE url_mappings (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  short_url TEXT NOT NULL UNIQUE,
+  long_url TEXT NOT NULL,
+  created_at TEXT NOT NULL
+);
+```
+#### 创建短链接索引
+```bash
+CREATE INDEX idx_short_url ON url_mappings(short_url);
+```
+#### 创建长链接索引
+```bash
+CREATE INDEX idx_long_url ON url_mappings(long_url);
+```
+#### 检查数据库是否正确配置
+
+完成架构更新后，您可以执行以下查询来验证数据库是否正确配置：
+
+插入测试数据
+```bash
+INSERT INTO url_mappings (short_url, long_url, created_at) 
+VALUES ('test', 'https://example.com', '2023-01-01T00:00:00Z');
+```
+#### 查询测试数据
+```bash
+SELECT * FROM url_mappings WHERE short_url = 'test';
+```
+#### 删除测试数据
+```bash
+DELETE FROM url_mappings WHERE short_url = 'test';
+```
+以上步骤完成后，您的数据库架构应已成功更新并通过测试验证。
+
+
 
 5. **修改配置**
 在 src/index.js 文件中，修改管理员凭据：
